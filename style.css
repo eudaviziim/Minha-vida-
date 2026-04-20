@@ -1,0 +1,72 @@
+body {
+  background: #111;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  text-align: center;
+}
+
+header {
+  padding: 25px 15px 10px;
+}
+
+h1 {
+  font-size: 30px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+p {
+  font-size: 14px;
+}
+
+section {
+  margin: 20px 10px;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 15px;
+  border-radius: 18px;
+  backdrop-filter: blur(4px);
+}
+
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 10px;
+}
+
+.galeria img,
+.galeria video {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s ease;
+}
+
+.galeria img {
+  cursor: pointer;
+}
+
+.tela-cheia {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.tela-cheia img {
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
