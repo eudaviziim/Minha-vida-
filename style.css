@@ -1,11 +1,12 @@
 body {
-  background: #111;
+  background: linear-gradient(180deg, #121212, #000);
   color: white;
   font-family: Arial, sans-serif;
   margin: 0;
   text-align: center;
 }
 
+/* HEADER */
 header {
   padding: 25px 15px 10px;
 }
@@ -22,8 +23,10 @@ h2 {
 
 p {
   font-size: 14px;
+  color: #b3b3b3;
 }
 
+/* MENU */
 .menu {
   display: flex;
   justify-content: center;
@@ -45,14 +48,17 @@ p {
   background: rgba(255, 255, 255, 0.18);
 }
 
+/* SEÇÕES */
 section {
   margin: 20px 10px;
   background: rgba(0, 0, 0, 0.35);
   padding: 15px;
   border-radius: 18px;
   backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* GALERIA */
 .galeria {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -70,17 +76,12 @@ section {
   transition: transform 0.3s ease;
 }
 
-.galeria img {
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-}
-
 .galeria img:hover,
 .galeria video:hover {
   transform: scale(1.03);
 }
 
+/* TELA CHEIA */
 .tela-cheia {
   display: none;
   position: fixed;
@@ -107,14 +108,45 @@ section {
   z-index: 10000;
 }
 
+/* PLAYLIST */
+.playlist {
+  padding: 20px;
+}
+
+.playlist h2 {
+  color: #1DB954;
+  text-align: center;
+}
+
+/* CARD DE MÚSICA */
+.card-musica {
+  background: #181818;
+  padding: 15px;
+  margin: 18px 0;
+  border-radius: 18px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  transition: 0.3s;
+}
+
+.card-musica:hover {
+  background: #282828;
+  transform: scale(1.02);
+}
+
+.card-musica h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* VÍDEO MAIOR */
+.card-musica iframe {
+  width: 100%;
+  height: 240px;
+  border-radius: 12px;
+}
+
+/* FOOTER */
 footer {
   padding: 20px;
   font-size: 14px;
-}
-section h2 {
-  margin-bottom: 12px;
-}
-
-section:first-of-type {
-  border: 1px solid rgba(255, 255, 255, 0.08);
 }
