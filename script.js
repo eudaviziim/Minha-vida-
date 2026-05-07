@@ -24,3 +24,60 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+const botoesCurtir = document.querySelectorAll(".like-btn");
+
+botoesCurtir.forEach((botao, index) => {
+
+  const contador = botao.nextElementSibling;
+
+  const chave = "foto-curtida-" + index;
+
+  const chaveContador = "foto-contador-" + index;
+
+  let curtido = localStorage.getItem(chave);
+
+  let total = localStorage.getItem(chaveContador) || 0;
+
+  contador.textContent = total + " curtidas";
+
+  if (curtido === "sim") {
+
+    botao.textContent = "❤️ Curtido";
+
+    botao.classList.add("curtido");
+
+  }
+
+  botao.addEventListener("click", () => {
+
+    let numero = Number(localStorage.getItem(chaveContador)) || 0;
+
+    if (localStorage.getItem(chave) === "sim") {
+
+      numero--;
+
+      localStorage.setItem(chave, "nao");
+
+      botao.textContent = "🤍 Curtir";
+
+      botao.classList.remove("curtido");
+
+    } else {
+
+      numero++;
+
+      localStorage.setItem(chave, "sim");
+
+      botao.textContent = "❤️ Curtido";
+
+      botao.classList.add("curtido");
+
+    }
+
+    localStorage.setItem(chaveContador, numero);
+
+    contador.textContent = numero + " curtidas";
+
+  });
+
+});
