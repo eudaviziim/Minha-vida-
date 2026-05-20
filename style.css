@@ -150,3 +150,6 @@ footer {
   padding: 20px;
   font-size: 14px;
 }
+body.no-scroll {
+  overflow: hidden;
+}

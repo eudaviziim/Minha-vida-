@@ -7,20 +7,26 @@ document.addEventListener("DOMContentLoaded", () => {
   if (imagens.length > 0 && tela && imgGrande && fechar) {
     imagens.forEach((img) => {
       img.addEventListener("click", () => {
-        tela.style.display = "flex";
-        imgGrande.src = img.src;
-      });
+  tela.style.display = "flex";
+  imgGrande.src = img.src;
+
+  document.body.classList.add("no-scroll");
+});
     });
 
     tela.addEventListener("click", () => {
-      tela.style.display = "none";
-      imgGrande.src = "";
-    });
+  tela.style.display = "none";
+  imgGrande.src = "";
+
+  document.body.classList.remove("no-scroll");
+});
 
     fechar.addEventListener("click", (event) => {
-      event.stopPropagation();
-      tela.style.display = "none";
-      imgGrande.src = "";
-    });
+  event.stopPropagation();
+  tela.style.display = "none";
+  imgGrande.src = "";
+
+  document.body.classList.remove("no-scroll");
+});
   }
 });
