@@ -12,113 +12,109 @@
 html, body {
   width: 100%;
   height: 100%;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Space Grotesk', 'Segoe UI', Roboto, sans-serif;
   background-color: #050508;
   color: #ffffff;
   overflow-x: hidden;
 }
 
-/* 2. ALINHAMENTO E CORREÇÃO PARA CELULAR / INSTAGRAM (100dvh) */
-body {
-  min-height: 100vh;
-  min-height: 100dvh; /* Ajusta a altura real no navegador do Instagram */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-  position: relative;
-}
-
-/* 3. EFEITO DE FUNDO (CANVAS / PARTÍCULAS) */
-canvas {
+/* 2. EFEITO DE FUNDO (CANVAS / PARTÍCULAS 3D) */
+canvas, #bg-3d {
   position: fixed !important;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   height: 100dvh;
-  z-index: -1; /* Garante que fique atrás de todo o conteúdo */
+  z-index: -1;
   pointer-events: none;
 }
 
-/* 4. CONTAINER DE CONTEÚDO PRINCIPAL */
-.container, main, .content {
-  position: relative;
-  z-index: 1;
-  max-width: 800px;
+/* 3. ESTRUTURA PRINCIPAL (INDEX.HTML) */
+.hero-fullscreen {
   width: 100%;
+  min-height: calc(100vh - 60px);
+  min-height: calc(100dvh - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.hero-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  gap: 20px;
 }
 
-/* 5. TÍTULOS COM DEGRADÊ E BRILHO NEON */
-.header-paginas h1, 
-h1 {
-  font-size: clamp(2.2rem, 6vw, 3.5rem);
+/* 4. TÍTULOS COM GRADIENTE E NEON */
+h1, .bem-vindo-animado, .header-paginas h1 {
+  font-size: clamp(2.5rem, 8vw, 4rem);
   font-weight: 800;
-  margin-bottom: 12px;
-  letter-spacing: -0.5px;
-  
-  /* Efeito Gradiente Azul */
+  margin: 0;
+  letter-spacing: -1px;
   background: linear-gradient(90deg, #00f2fe, #4facfe, #00d2ff);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  
-  /* Sombra / Brilho Neon */
-  filter: drop-shadow(0px 0px 10px rgba(0, 210, 255, 0.5));
+  filter: drop-shadow(0px 0px 12px rgba(0, 210, 255, 0.6));
 }
 
-/* 6. LINKS DE NAVEGAÇÃO (CORRIGIDOS PARA O INSTAGRAM) */
-nav, .menu-links {
+/* 5. MENU E LINKS CORRIGIDOS */
+nav, .menu-hero {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-  margin: 15px 0;
-  z-index: 2;
+  gap: 15px;
 }
 
-a, nav a {
-  color: #4facfe !important; /* Azul claro de alta visibilidade */
-  text-decoration: none;
+a, nav a, .menu-hero a {
+  color: #00d2ff !important;
+  text-decoration: none !important;
   font-size: 1.1rem;
-  font-weight: 600;
-  padding: 6px 14px;
+  font-weight: 700;
+  padding: 8px 16px;
   border-radius: 8px;
   transition: all 0.3s ease;
   display: inline-block;
 }
 
-/* Efeito Hover / Toque no Celular */
-a:hover, 
-nav a:hover, 
-a:focus {
-  color: #00f2fe !important;
-  text-shadow: 0 0 12px rgba(0, 242, 254, 0.9);
-  background-color: rgba(0, 242, 254, 0.1);
+a:hover, nav a:hover, .menu-hero a:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.9);
+  background-color: rgba(0, 210, 255, 0.15);
   transform: translateY(-2px);
 }
 
-/* 7. RODAPÉ */
-footer, .footer {
-  margin-top: 30px;
+/* 6. BOTÃO VOLTAR E OUTRAS PÁGINAS */
+.header-paginas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 30px 20px 10px;
+}
+
+.btn-voltar {
   font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+/* 7. RODAPÉ FIXO NO FINAL */
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.9rem;
   color: #a0aec0;
-  letter-spacing: 0.5px;
-  z-index: 2;
 }
 ```eof
 
-Aqui estão as melhorias aplicadas neste arquivo CSS:
-1. **Suporte ao Instagram (`100dvh`):** Impede que as barras do navegador empurrem o conteúdo para o fundo.
-2. **Centralização Perfeita:** Conteúdo centralizado verticalmente na tela.
-3. **Links Visíveis:** Mudança do azul escuro original para um azul cyan brilhante com efeito neon ao tocar.
-4. **Gradiente no Título:** Preservado o degradê estilizado no título `Bem-vindo`.
-
-Substitua todo o conteúdo do seu `style.css` por este e faça o commit no GitHub! Se precisar de qualquer outro ajuste, me avise.
+### O que muda com esta atualização:
+* **Centralização do bloco principal:** A classe `.hero-fullscreen` agora força o bloco a ocupar a altura da tela (`100dvh`), centralizando o texto no meio [source: 2].
+* **Visibilidade dos links:** A propriedade `!important` na classe `.menu-hero a` impede que a cor azul padrão do navegador do Instagram substitua o tom azul neon [source: 2, 6].
