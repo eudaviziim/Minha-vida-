@@ -7,35 +7,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+  <!-- CANVAS DO FUNDO 3D -->
+  <canvas id="bg-3d"></canvas>
 
-  <header>
+  <header class="header-paginas">
+    <a href="index.html" class="btn-voltar">← Início</a>
     <h1>Meus vídeos 🎥</h1>
   </header>
-
-  <nav class="menu">
-    <a href="index.html">Início</a>
-    <a href="fotos.html">Fotos</a>
-    <a href="videos.html">Vídeos</a>
-    <a href="musicas.html">Músicas</a>
-    <a href="sobre.html">Sobre</a>
-  </nav>
+  
   <section>
-  <h2>🎬 Meus vídeos</h2>
+    <div class="galeria">
+      <video controls>
+        <source src="video6.mp4" type="video/mp4">
+      </video>
+      
+      <video controls>
+        <source src="video7.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
 
-  <div class="galeria">
-    <video controls>
-      <source src="video6.mp4" type="video/mp4">
-    </video>
-    
-    <video controls>
-      <source src="video7.mp4" type="video/mp4">
-    </video>
-  </div>
-</section>
+  <button id="btnTopo" title="Voltar ao topo">↑</button>
 
-  <footer>
-    <p>© 2026 - @eudaviziim</p>
-  </footer>
-
+  <!-- BIBLIOTECA THREE.JS E SCRIPT PRINCIPAL -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

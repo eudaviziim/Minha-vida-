@@ -3,58 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <title>davi</title>
-
   <link rel="stylesheet" href="style.css">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonte moderna Space Grotesk -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CLGP14B8J7"></script>
-
   <script>
     window.dataLayer = window.dataLayer || [];
-
-    function gtag(){
-      dataLayer.push(arguments);
-    }
-
+    function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'G-CLGP14B8J7');
   </script>
-
 </head>
-
 <body>
 
-  <header>
-    <h1>Minha vida 📸</h1>
+  <!-- CANVAS ONDE O THREE.JS DESENHA AS PARTÍCULAS 3D -->
+  <canvas id="bg-3d"></canvas>
 
-    <p>Meu site com fotos, vídeos e memórias</p>
-  </header>
-
-  <nav class="menu">
-    <a href="index.html">Início</a>
-    <a href="fotos.html">Fotos</a>
-    <a href="videos.html">Vídeos</a>
-    <a href="musicas.html">Músicas</a>
-    <a href="sobre.html">Sobre</a>
-  </nav>
-
-  <section>
-    <h2>Bem-vindo</h2>
-
-    <p>
-      Aqui eu vou guardar momentos importantes da minha vida,
-      lugares bonitos, vídeos e lembranças especiais.
-    </p>
-  </section>
+  <!-- TELA INICIAL COMPLETA -->
+  <main class="hero-fullscreen">
+    <div class="hero-content">
+      <h1 class="bem-vindo-animado">Bem-vindo</h1>
+      
+      <!-- MENU LOCALIZADO LOGO ABAIXO -->
+      <nav class="menu-hero">
+        <a href="fotos.html">Fotos</a>
+        <a href="videos.html">Vídeos</a>
+        <a href="musicas.html">Músicas</a>
+        <a href="sobre.html">Sobre</a>
+      </nav>
+    </div>
+  </main>
 
   <footer>
-    <p>© 2026 - @eudaviziim</p>
+    <p>© 2026 - @Davi</p>
   </footer>
 
-  </script>
-
+  <!-- BIBLIOTECA THREE.JS VIA CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
