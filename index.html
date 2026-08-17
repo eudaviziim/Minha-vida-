@@ -1,49 +1,105 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
-  <title>davi</title>
-  <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fonte moderna Space Grotesk -->
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CLGP14B8J7"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-CLGP14B8J7');
-  </script>
+  <meta name="theme-color"
+        content="#030407">
+
+  <title>Davi</title>
+
+  <link rel="stylesheet"
+        href="style.css">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
 </head>
+
 <body>
 
-  <!-- CANVAS ONDE O THREE.JS DESENHA AS PARTÍCULAS 3D -->
+  <!-- FUNDO 3D -->
   <canvas id="bg-3d"></canvas>
 
-  <!-- TELA INICIAL COMPLETA -->
+
+  <!-- ==============================
+       PÁGINA INICIAL
+       ============================== -->
+
   <main class="hero-fullscreen">
+
     <div class="hero-content">
-      <h1 class="bem-vindo-animado">Bem-vindo</h1>
-      
-      <!-- MENU LOCALIZADO LOGO ABAIXO -->
+
+      <!-- PEQUENA ETIQUETA -->
+      <div class="hero-badge">
+        ✦ Meu espaço pessoal
+      </div>
+
+
+      <!-- TÍTULO -->
+      <h1 class="bem-vindo-animado">
+        Bem-vindo
+      </h1>
+
+
+      <!-- SUBTÍTULO -->
+      <p class="hero-subtitle">
+        Um pouco da minha vida, minhas músicas,
+        fotos e momentos.
+      </p>
+
+
+      <!-- MENU -->
       <nav class="menu-hero">
-        <a href="fotos.html">Fotos</a>
-        <a href="videos.html">Vídeos</a>
-        <a href="musicas.html">Músicas</a>
-        <a href="sobre.html">Sobre</a>
+
+        <a href="fotos.html">
+          📸 Fotos
+        </a>
+
+        <a href="videos.html">
+          🎥 Vídeos
+        </a>
+
+        <a href="musicas.html">
+          🎧 Músicas
+        </a>
+
+        <a href="sobre.html">
+          ✨ Sobre
+        </a>
+
       </nav>
+
     </div>
+
   </main>
+
+
+  <!-- ==============================
+       RODAPÉ
+       ============================== -->
 
   <footer>
     <p>© 2026 - @Davi</p>
   </footer>
 
-  <!-- BIBLIOTECA THREE.JS VIA CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- ==============================
+       THREE.JS
+       ============================== -->
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+  </script>
+
+
+  <!-- SEU JAVASCRIPT -->
   <script src="script.js"></script>
+
 </body>
+
 </html>
