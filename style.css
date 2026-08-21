@@ -1526,3 +1526,78 @@ footer {
   }
 
 }
+/* =========================================================
+   BOTÃO WHATSAPP
+   ========================================================= */
+
+.btn-whatsapp {
+  width: 72px;
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 8px auto 5px;
+
+  border-radius: 50%;
+
+  background: #25D366;
+
+  text-decoration: none;
+
+  box-shadow:
+    0 0 20px rgba(37, 211, 102, .35),
+    0 8px 25px rgba(0, 0, 0, .4);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
+}
+
+.icone-whatsapp {
+  width: 43px;
+  height: 43px;
+
+  fill: #fff;
+}
+
+.btn-whatsapp:hover {
+  transform: scale(1.08);
+
+  box-shadow:
+    0 0 30px rgba(37, 211, 102, .55),
+    0 10px 30px rgba(0, 0, 0, .45);
+}
+
+.btn-whatsapp:active {
+  transform: scale(.92);
+}
+.contato-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  color: #25D366 !important;
+  text-decoration: none !important;
+  font-weight: 700;
+
+  transition: .25s ease;
+}
+
+.icone-whatsapp {
+  width: 28px;
+  height: 28px;
+  fill: #25D366;
+  flex-shrink: 0;
+}
+
+.contato-whatsapp:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 8px rgba(37, 211, 102, .4));
+}
+
+.contato-whatsapp:active {
+  transform: scale(.95);
+}
