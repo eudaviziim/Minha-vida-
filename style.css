@@ -12,7 +12,6 @@
 html {
   width: 100%;
   min-height: 100%;
-
   scroll-behavior: smooth;
 }
 
@@ -287,17 +286,21 @@ footer {
 @keyframes aparecerBadge {
 
   from {
+
     opacity: 0;
 
     transform:
       translateY(-15px);
+
   }
 
   to {
+
     opacity: 1;
 
     transform:
       translateY(0);
+
   }
 
 }
@@ -307,13 +310,17 @@ footer {
 
   0%,
   100% {
+
     transform:
       translateY(0);
+
   }
 
   50% {
+
     transform:
       translateY(-4px);
+
   }
 
 }
@@ -1023,26 +1030,37 @@ section {
 
 
 /* =========================================================
+   ÁREA DA FOTO ABERTA
+   ========================================================= */
+
+.foto-stage {
+
+  width: min(90vw, 1200px);
+
+  height: min(82vh, 850px);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+
+/* =========================================================
    IMAGEM GRANDE
    ========================================================= */
 
-.tela-cheia img {
+.foto-stage img {
 
   display: block;
 
-  width: auto;
+  width: 100%;
 
-  height: auto;
-
-  max-width:
-    calc(100vw - 30px);
-
-  max-height:
-    calc(100vh - 100px);
+  height: 100%;
 
   object-fit: contain;
-
-  margin: 0 auto;
 
   border-radius: 10px;
 
@@ -1526,11 +1544,14 @@ footer {
   }
 
 }
+
+
 /* =========================================================
    BOTÃO WHATSAPP
    ========================================================= */
 
 .btn-whatsapp {
+
   width: 72px;
   height: 72px;
 
@@ -1556,6 +1577,7 @@ footer {
 }
 
 .icone-whatsapp {
+
   width: 43px;
   height: 43px;
 
@@ -1563,6 +1585,7 @@ footer {
 }
 
 .btn-whatsapp:hover {
+
   transform: scale(1.08);
 
   box-shadow:
@@ -1571,33 +1594,73 @@ footer {
 }
 
 .btn-whatsapp:active {
+
   transform: scale(.92);
+
 }
+
 .contato-whatsapp {
+
   display: inline-flex;
+
   align-items: center;
+
   justify-content: center;
+
   gap: 9px;
 
   color: #25D366 !important;
+
   text-decoration: none !important;
+
   font-weight: 700;
 
   transition: .25s ease;
 }
 
 .icone-whatsapp {
+
   width: 28px;
   height: 28px;
+
   fill: #25D366;
+
   flex-shrink: 0;
 }
 
 .contato-whatsapp:hover {
+
   transform: translateY(-2px);
-  filter: drop-shadow(0 0 8px rgba(37, 211, 102, .4));
+
+  filter:
+    drop-shadow(
+      0 0 8px
+      rgba(37, 211, 102, .4)
+    );
+
 }
 
 .contato-whatsapp:active {
+
   transform: scale(.95);
+
+}
+
+
+/* =========================================================
+   ÁREA DA FOTO NO CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .foto-stage {
+
+    width:
+      calc(100vw - 30px);
+
+    height:
+      calc(100vh - 110px);
+
+  }
+
 }
