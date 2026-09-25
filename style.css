@@ -1031,13 +1031,18 @@ section {
 
 /* =========================================================
    ÁREA DA FOTO ABERTA
+   CORRIGIDA PARA CHROME + INSTAGRAM
    ========================================================= */
 
 .foto-stage {
 
-  width: min(90vw, 1200px);
+  width: min(92vw, 1200px);
 
   height: min(82vh, 850px);
+
+  max-width: 92vw;
+
+  max-height: calc(100vh - 100px);
 
   display: flex;
 
@@ -1050,15 +1055,20 @@ section {
 
 /* =========================================================
    IMAGEM GRANDE
+   NÃO FORÇA WIDTH + HEIGHT AO MESMO TEMPO
    ========================================================= */
 
 .foto-stage img {
 
   display: block;
 
-  width: 100%;
+  width: auto;
 
-  height: 100%;
+  height: auto;
+
+  max-width: 100%;
+
+  max-height: 100%;
 
   object-fit: contain;
 
@@ -1649,17 +1659,32 @@ footer {
 
 /* =========================================================
    ÁREA DA FOTO NO CELULAR
+   CORREÇÃO PARA NAVEGADOR DO INSTAGRAM
    ========================================================= */
 
 @media (max-width: 600px) {
 
   .foto-stage {
 
-    width:
-      calc(100vw - 30px);
+    width: 92vw;
 
-    height:
-      calc(100vh - 110px);
+    height: 82dvh;
+
+    max-width: 92vw;
+
+    max-height: calc(100dvh - 100px);
+
+  }
+
+  .foto-stage img {
+
+    max-width: 100%;
+
+    max-height: 100%;
+
+    width: auto;
+
+    height: auto;
 
   }
 
@@ -1669,6 +1694,11 @@ footer {
 /* =========================================================
    CARREGAMENTO PROGRESSIVO DAS FOTOS
    ========================================================= */
+
+/*
+  Enquanto a imagem ainda não carregou,
+  fica invisível.
+*/
 
 .galeria img {
 
@@ -1680,12 +1710,21 @@ footer {
 }
 
 
+/*
+  Quando terminou de carregar,
+  aparece suavemente.
+*/
+
 .galeria img.carregada {
 
   opacity: 1;
 
 }
 
+
+/*
+  Animação enquanto a foto está carregando.
+*/
 
 .galeria img.carregando {
 
@@ -1707,6 +1746,10 @@ footer {
 
 }
 
+
+/*
+  Movimento da animação.
+*/
 
 @keyframes carregandoFoto {
 
@@ -1738,22 +1781,22 @@ footer {
   top: 50%;
   left: 50%;
 
-  width: 50px;
-  height: 50px;
-
   transform:
     translate(-50%, -50%);
 
   display: none;
 
-  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 10;
 
 }
 
 
 .loading-foto.ativo {
 
-  display: block;
+  display: flex;
 
 }
 
@@ -1763,15 +1806,14 @@ footer {
   width: 42px;
   height: 42px;
 
+  border-radius: 50%;
+
   border:
     4px solid
-    rgba(255, 255, 255, 0.25);
+    rgba(255, 255, 255, 0.18);
 
-  border-top:
-    4px solid
+  border-top-color:
     #00d9ff;
-
-  border-radius: 50%;
 
   animation:
     girarFoto
@@ -1784,14 +1826,14 @@ footer {
 
 @keyframes girarFoto {
 
-  0% {
+  from {
 
     transform:
       rotate(0deg);
 
   }
 
-  100% {
+  to {
 
     transform:
       rotate(360deg);
@@ -1801,41 +1843,12 @@ footer {
 }
 
 
-/* =========================================================
-   FOTO GRANDE — CORRIGIDO
-   ========================================================= */
-
 #imgGrande {
-
-  display: block;
-
-  width: auto;
-
-  height: auto;
-
-  max-width: 90vw;
-
-  max-height: 82vh;
-
-  object-fit: contain;
-
-  border-radius: 10px;
-
-  box-shadow:
-    0 0 35px
-    rgba(0,217,255,.20);
-
-  pointer-events: none;
 
   opacity: 0;
 
   transition:
-    opacity .2s ease;
-
-  animation:
-    zoomFoto
-    .3s cubic-bezier(.16,1,.3,1)
-    both;
+    opacity 0.2s ease;
 
 }
 
@@ -1844,4 +1857,4 @@ footer {
 
   opacity: 1;
 
-},
+}
