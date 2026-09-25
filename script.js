@@ -1,75 +1,236 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   /* =========================================================
-     MODAL DAS FOTOS
+     LAZY LOADING DAS FOTOS
      ========================================================= */
 
-  const imagens = document.querySelectorAll(".galeria img");
-  const telaCheia = document.getElementById("telaCheia");
-  const imgGrande = document.getElementById("imgGrande");
-  const fechar = document.getElementById("fechar");
+  const imagensLazy = document.querySelectorAll(".galeria img[data-src]");
+
+  const imagemVazia =
+    "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
+
+  imagensLazy.forEach(function (img) {
+    img.src = imagemVazia;
+    img.decoding = "async";
+    img.loading = "lazy";
+  });
+
+  if ("IntersectionObserver" in window) {
+
+    const observador = new IntersectionObserver(
+      function (entradas, observer) {
+
+        entradas.forEach(function (entrada) {
+
+          if (!entrada.isIntersecting) return;
+
+          const img = entrada.target;
+          const endereco = img.dataset.src;
+
+          if (!endereco) return;
+
+          img.src = endereco;
+          img.removeAttribute("data-src");
+
+          observer.unobserve(img);
+
+        });
+
+      },
+      {
+        rootMargin: "500px 0px",
+        threshold: 0.01
+      }
+    );
+
+    imagensLazy.forEach(function (img) {
+      observador.observe(img);
+    });
+
+  } else {
+
+    imagensLazy.forEach(function (img) {
+
+      img.src = img.dataset.src;
+      img.removeAttribute("data-src");
+
+    });
+
+  }
+
+
+  /* =========================================================
+     MODAL DAS FOTOS + CARREGAMENTO
+     ========================================================= */
+
+  const galeria =
+    document.querySelector(".galeria");
+
+  const telaCheia =
+    document.getElementById("telaCheia");
+
+  const imgGrande =
+    document.getElementById("imgGrande");
+
+  const fechar =
+    document.getElementById("fechar");
+
+  const loadingFoto =
+    document.getElementById("loadingFoto");
 
   let modalAberto = false;
 
-  if (imagens.length > 0 && telaCheia && imgGrande && fechar) {
 
-    imagens.forEach(function (img) {
+  if (
+    galeria &&
+    telaCheia &&
+    imgGrande &&
+    fechar
+  ) {
 
-      img.addEventListener("click", function (e) {
+    galeria.addEventListener("click", function (e) {
 
-        e.preventDefault();
-        e.stopPropagation();
+      const img =
+        e.target.closest("img");
 
-        imgGrande.src = img.currentSrc || img.src;
-        imgGrande.alt = img.alt || "Imagem ampliada";
+      if (!img) return;
 
-        telaCheia.classList.add("ativo");
+      e.preventDefault();
+      e.stopPropagation();
 
-        document.body.classList.add("no-scroll");
+      const endereco =
+        img.dataset.src || img.src;
 
-        modalAberto = true;
-      });
+
+      telaCheia.classList.add("ativo");
+
+      document.body.classList.add("no-scroll");
+
+      modalAberto = true;
+
+
+      if (loadingFoto) {
+        loadingFoto.classList.add("ativo");
+      }
+
+
+      imgGrande.classList.remove(
+        "foto-pronta"
+      );
+
+      imgGrande.removeAttribute("src");
+
+
+      const imagemGrande =
+        new Image();
+
+
+      imagemGrande.onload =
+        function () {
+
+          if (!modalAberto) return;
+
+          imgGrande.src =
+            endereco;
+
+          imgGrande.alt =
+            img.alt ||
+            "Imagem ampliada";
+
+          imgGrande.classList.add(
+            "foto-pronta"
+          );
+
+
+          if (loadingFoto) {
+            loadingFoto.classList.remove(
+              "ativo"
+            );
+          }
+
+        };
+
+
+      imagemGrande.onerror =
+        function () {
+
+          if (loadingFoto) {
+            loadingFoto.classList.remove(
+              "ativo"
+            );
+          }
+
+        };
+
+
+      imagemGrande.src =
+        endereco;
 
     });
 
 
     function fecharModal() {
 
-      telaCheia.classList.remove("ativo");
+      telaCheia.classList.remove(
+        "ativo"
+      );
 
-      document.body.classList.remove("no-scroll");
+      document.body.classList.remove(
+        "no-scroll"
+      );
 
       modalAberto = false;
 
+
+      if (loadingFoto) {
+        loadingFoto.classList.remove(
+          "ativo"
+        );
+      }
+
+
+      imgGrande.classList.remove(
+        "foto-pronta"
+      );
+
+
       setTimeout(function () {
-        imgGrande.removeAttribute("src");
+
+        imgGrande.removeAttribute(
+          "src"
+        );
+
       }, 250);
+
     }
 
 
-    /* =====================================================
-       SOMENTE O X FECHA A FOTO
-       ===================================================== */
+    fechar.addEventListener(
+      "click",
+      function (e) {
 
-    fechar.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
 
-      e.preventDefault();
-      e.stopPropagation();
-
-      fecharModal();
-
-    });
-
-
-    /* ESC NO COMPUTADOR */
-
-    document.addEventListener("keydown", function (e) {
-
-      if (e.key === "Escape" && modalAberto) {
         fecharModal();
-      }
 
-    });
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      function (e) {
+
+        if (
+          e.key === "Escape" &&
+          modalAberto
+        ) {
+          fecharModal();
+        }
+
+      }
+    );
 
   }
 
@@ -78,19 +239,27 @@ document.addEventListener("DOMContentLoaded", function () {
      BOTÃO VOLTAR AO TOPO
      ========================================================= */
 
-  const btnTopo = document.getElementById("btnTopo");
+  const btnTopo =
+    document.getElementById("btnTopo");
 
   if (btnTopo) {
 
     function verificarTopo() {
 
       if (window.scrollY > 350) {
-        btnTopo.style.display = "flex";
+
+        btnTopo.style.display =
+          "flex";
+
       } else {
-        btnTopo.style.display = "none";
+
+        btnTopo.style.display =
+          "none";
+
       }
 
     }
+
 
     window.addEventListener(
       "scroll",
@@ -98,17 +267,21 @@ document.addEventListener("DOMContentLoaded", function () {
       { passive: true }
     );
 
+
     verificarTopo();
 
 
-    btnTopo.addEventListener("click", function () {
+    btnTopo.addEventListener(
+      "click",
+      function () {
 
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
 
-    });
+      }
+    );
 
   }
 
@@ -117,74 +290,97 @@ document.addEventListener("DOMContentLoaded", function () {
      TRANSIÇÃO ENTRE PÁGINAS
      ========================================================= */
 
-  const links = document.querySelectorAll(
-    'a[href$=".html"]'
-  );
+  const links =
+    document.querySelectorAll(
+      'a[href$=".html"]'
+    );
+
 
   links.forEach(function (link) {
 
-    link.addEventListener("click", function (e) {
+    link.addEventListener(
+      "click",
+      function (e) {
 
-      const destino = link.getAttribute("href");
+        const destino =
+          link.getAttribute("href");
 
-      if (
-        !destino ||
-        destino.startsWith("#") ||
-        link.target === "_blank"
-      ) {
-        return;
+
+        if (
+          !destino ||
+          destino.startsWith("#") ||
+          link.target === "_blank"
+        ) {
+          return;
+        }
+
+
+        e.preventDefault();
+
+
+        document.body.classList.add(
+          "saindo"
+        );
+
+
+        setTimeout(
+          function () {
+
+            window.location.href =
+              destino;
+
+          },
+          220
+        );
+
       }
-
-      e.preventDefault();
-
-      document.body.classList.add("saindo");
-
-      setTimeout(function () {
-
-        window.location.href = destino;
-
-      }, 220);
-
-    });
+    );
 
   });
 
 
   /* =========================================================
      FUNDO ANIMADO
-     
-     SOMENTE CANVAS 2D
-     
-     NÃO USA THREE.JS
-     NÃO USA TOUCH
-     NÃO USA MOUSE
-     NÃO USA SCROLL
      ========================================================= */
 
-  const canvas = document.getElementById("bg-3d");
+  const canvas =
+    document.getElementById("bg-3d");
 
   if (!canvas) {
     return;
   }
 
-  const ctx = canvas.getContext("2d", {
-    alpha: true
-  });
+
+  const ctx =
+    canvas.getContext(
+      "2d",
+      {
+        alpha: true
+      }
+    );
+
 
   if (!ctx) {
     return;
   }
 
 
-  let largura = window.innerWidth;
-  let altura = window.innerHeight;
+  let largura =
+    window.innerWidth;
+
+  let altura =
+    window.innerHeight;
+
 
   let particulas = [];
 
-  let dpr = Math.min(
-    window.devicePixelRatio || 1,
-    1.5
-  );
+
+  let dpr =
+    Math.min(
+      window.devicePixelRatio || 1,
+      1.5
+    );
+
 
   let ultimoFrame = 0;
 
@@ -197,27 +393,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function configurarCanvas() {
 
-    largura = window.innerWidth;
-    altura = window.innerHeight;
+    largura =
+      window.innerWidth;
 
-    dpr = Math.min(
-      window.devicePixelRatio || 1,
-      1.5
-    );
+    altura =
+      window.innerHeight;
 
-    canvas.width = Math.floor(
-      largura * dpr
-    );
 
-    canvas.height = Math.floor(
-      altura * dpr
-    );
+    dpr =
+      Math.min(
+        window.devicePixelRatio || 1,
+        1.5
+      );
+
+
+    canvas.width =
+      Math.floor(
+        largura * dpr
+      );
+
+
+    canvas.height =
+      Math.floor(
+        altura * dpr
+      );
+
 
     canvas.style.width =
       largura + "px";
 
+
     canvas.style.height =
       altura + "px";
+
 
     ctx.setTransform(
       dpr,
@@ -239,29 +447,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
     particulas = [];
 
-    const celular = largura <= 700;
+
+    const celular =
+      largura <= 700;
+
 
     const quantidade =
       celular ? 45 : 80;
 
-    for (let i = 0; i < quantidade; i++) {
+
+    for (
+      let i = 0;
+      i < quantidade;
+      i++
+    ) {
 
       particulas.push({
 
         x:
-          Math.random() * largura,
+          Math.random() *
+          largura,
 
         y:
-          Math.random() * altura,
+          Math.random() *
+          altura,
 
         tamanho:
-          Math.random() * 1.5 + 0.5,
+          Math.random() *
+          1.5 +
+          0.5,
 
         velocidade:
-          Math.random() * 0.20 + 0.05,
+          Math.random() *
+          0.20 +
+          0.05,
 
         brilho:
-          Math.random() * 0.45 + 0.25,
+          Math.random() *
+          0.45 +
+          0.25,
 
         fase:
           Math.random() *
@@ -275,10 +499,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  /* =========================================================
-     INICIALIZAR
-     ========================================================= */
-
   configurarCanvas();
 
   criarParticulas();
@@ -286,34 +506,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
   /* =========================================================
      RESIZE
-     
-     SOMENTE REDIMENSIONAMENTO.
-     
-     NÃO DETECTA MOVIMENTO DO DEDO.
      ========================================================= */
 
   let resizeTimer;
+
 
   window.addEventListener(
     "resize",
     function () {
 
-      clearTimeout(resizeTimer);
+      clearTimeout(
+        resizeTimer
+      );
 
-      resizeTimer = setTimeout(function () {
 
-        configurarCanvas();
-        criarParticulas();
+      resizeTimer =
+        setTimeout(
+          function () {
 
-      }, 150);
+            configurarCanvas();
+            criarParticulas();
+
+          },
+          150
+        );
 
     },
-    { passive: true }
+    {
+      passive: true
+    }
   );
 
 
   /* =========================================================
-     ECONOMIZAR BATERIA QUANDO A PÁGINA NÃO ESTÁ VISÍVEL
+     ECONOMIZAR BATERIA
      ========================================================= */
 
   document.addEventListener(
@@ -333,7 +559,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function animar(tempo) {
 
-    requestAnimationFrame(animar);
+    requestAnimationFrame(
+      animar
+    );
 
 
     if (!animacaoAtiva) {
@@ -341,21 +569,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* aproximadamente 60 FPS */
-
     if (
-      tempo - ultimoFrame < 16
+      tempo -
+      ultimoFrame <
+      16
     ) {
       return;
     }
 
-    ultimoFrame = tempo;
 
+    ultimoFrame =
+      tempo;
 
-    /*
-      Quando uma foto estiver aberta,
-      o fundo fica congelado.
-    */
 
     if (modalAberto) {
       return;
@@ -374,28 +599,28 @@ document.addEventListener("DOMContentLoaded", function () {
       tempo * 0.001;
 
 
-    /* =====================================================
-       PARTÍCULAS
-       ===================================================== */
-
     for (
       let i = 0;
       i < particulas.length;
       i++
     ) {
 
-      const p = particulas[i];
+      const p =
+        particulas[i];
 
 
-      p.y -= p.velocidade;
+      p.y -=
+        p.velocidade;
 
 
       if (p.y < -10) {
 
-        p.y = altura + 10;
+        p.y =
+          altura + 10;
 
         p.x =
-          Math.random() * largura;
+          Math.random() *
+          largura;
 
       }
 
@@ -405,7 +630,8 @@ document.addEventListener("DOMContentLoaded", function () {
         Math.sin(
           agora * 1.4 +
           p.fase
-        ) * 0.5;
+        ) *
+        0.5;
 
 
       const opacidade =
@@ -418,6 +644,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       ctx.beginPath();
 
+
       ctx.arc(
         p.x,
         p.y,
@@ -426,22 +653,17 @@ document.addEventListener("DOMContentLoaded", function () {
         Math.PI * 2
       );
 
+
       ctx.fillStyle =
         "rgba(0,217,255," +
         opacidade +
         ")";
 
+
       ctx.fill();
 
     }
 
-
-    /* =====================================================
-       LINHAS ENTRE PARTÍCULAS
-       
-       SOMENTE COMPUTADOR
-       PARA O CELULAR FICAR LEVE
-       ===================================================== */
 
     if (largura > 700) {
 
@@ -457,14 +679,19 @@ document.addEventListener("DOMContentLoaded", function () {
           j++
         ) {
 
-          const a = particulas[i];
-          const b = particulas[j];
+          const a =
+            particulas[i];
+
+          const b =
+            particulas[j];
+
 
           const dx =
             a.x - b.x;
 
           const dy =
             a.y - b.y;
+
 
           const distancia =
             Math.sqrt(
@@ -473,33 +700,42 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-          if (distancia < 105) {
+          if (
+            distancia < 105
+          ) {
 
             const opacidade =
               (
                 1 -
                 distancia / 105
-              ) * 0.10;
+              ) *
+              0.10;
 
 
             ctx.beginPath();
+
 
             ctx.moveTo(
               a.x,
               a.y
             );
 
+
             ctx.lineTo(
               b.x,
               b.y
             );
+
 
             ctx.strokeStyle =
               "rgba(0,217,255," +
               opacidade +
               ")";
 
-            ctx.lineWidth = 0.5;
+
+            ctx.lineWidth =
+              0.5;
+
 
             ctx.stroke();
 
@@ -514,10 +750,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  /* =========================================================
-     COMEÇAR ANIMAÇÃO
-     ========================================================= */
-
-  requestAnimationFrame(animar);
+  requestAnimationFrame(
+    animar
+  );
 
 });

@@ -1664,3 +1664,139 @@ footer {
   }
 
 }
+/* =========================================================
+   CARREGAMENTO PROGRESSIVO DAS FOTOS
+   ========================================================= */
+
+/*
+  Enquanto a imagem ainda não carregou,
+  fica invisível.
+*/
+
+.galeria img {
+  opacity: 0;
+
+  transition:
+    opacity 0.35s ease;
+}
+
+
+/*
+  Quando terminou de carregar,
+  aparece suavemente.
+*/
+
+.galeria img.carregada {
+  opacity: 1;
+}
+
+
+/*
+  Animação enquanto a foto está carregando.
+*/
+
+.galeria img.carregando {
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 217, 255, 0.04),
+      rgba(0, 217, 255, 0.18),
+      rgba(0, 217, 255, 0.04)
+    );
+
+  background-size:
+    200% 100%;
+
+  animation:
+    carregandoFoto 1.2s
+    ease-in-out
+    infinite;
+
+}
+
+
+/*
+  Movimento da animação.
+*/
+
+@keyframes carregandoFoto {
+
+  0% {
+    background-position:
+      200% 0;
+  }
+
+  100% {
+    background-position:
+      -200% 0;
+  }
+
+}
+/* =========================================================
+   LOADING SOMENTE AO ABRIR A FOTO GRANDE
+   ========================================================= */
+
+.loading-foto {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  z-index: 10;
+}
+
+.loading-foto.ativo {
+  display: flex;
+}
+
+
+.spinner-foto {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  border: 4px solid rgba(255, 255, 255, 0.18);
+
+  border-top-color: #00d9ff;
+
+  animation:
+    girarFoto
+    0.8s
+    linear
+    infinite;
+}
+
+
+@keyframes girarFoto {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+#imgGrande {
+  opacity: 0;
+
+  transition:
+    opacity 0.2s ease;
+}
+
+
+#imgGrande.foto-pronta {
+  opacity: 1;
+}
